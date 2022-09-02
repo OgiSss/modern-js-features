@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>How to improve our code?</title>
+
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet"
+		  href="./dist/reveal.css">
+	<link rel="stylesheet"
+		  href="./dist/theme/black.css"
+		  id="theme">
+	<link rel="stylesheet"
+		  href="./plugin/highlight/monokai.css">
+</head>
+
+<body>
+
+	<div class="reveal">
+
+		<div class="slides">
+			<section data-auto-animate
+					 data-auto-animate-unmatched="fade">
+				<h5>Javascript</h3>
+					<h6>How to improve our code?</h6>
+					<p style="text-align: right;">By Oskar Kumor</p>
+					<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+					var a;
+					var b = null;
+					var c = undefined;
+					var d = 4;
+					var e = 'five';
+
+					var f = a || b || c || d || e;
+
+					console.log(f); //Output?...
+		   </code></pre>
+			</section>
+
+			<section>
+				<section data-auto-animate>
+					<h5>Short circuit</h5>
+					<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+						var a; // undefined (falsy value)
+						var b = null; // null (falsy value)
+						var c = undefined; // undefined (falsy value)
+						var d = 4; // number (NOT falsy)
+						var e = 'five'; // assigment short circuits before reaching here
+
+						var f = a || b || c || d || e;
+
+						console.log(f); //Output?... 4
+			   </code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h5>Logical OR(||) Operator</h5>
+					<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+						true || false
+						// true
+			   </code></pre>
+					<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+				// So how can we use this?
+				// Default value
+				var x;
+				var y = 'Gurseerat';
+				var z = 'This will not evaluate';
+				var name = x || y || z;
+				console.log(name);
+				// Gurseerat
+	   			</code></pre>
+				</section>
+				<section data-auto-animate>
+					<h5>Logical AND(&&) Operator</h5>
+					<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+						false && true
+						// false
+			   </code></pre>
+					<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+				// So how can we use this?
+				// Instead of one if
+				var age =  25;
+				function driveCar() {
+  					return 'Driving Car';
+				}
+				var result = age > 18 && driveCar();
+				console.log(result);
+				// Driving Car
+	   			</code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h4>Short circuit</h5>
+						<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+						var age = 25;
+						// Using if condition
+						if (age > 18) {
+						  action = "Drive Car";
+						} else {
+						  action= "Can't Drive Car";
+						}
+						console.log(action) // Drive Car
+						// Short-circuiting
+						greeting = (age > 18 && "Drive Car") || "Can't Drive Car";
+						console.log(greeting) // Drive Car
+			   		</code></pre>
+				</section>
+
+			</section>
+
+			<section>
+
+				<section data-auto-animate>
+					<h4>Nullish Coalescing</h4>
+
+					<p style="font-size: 16px">The nullish coalescing operator (??) is a logical operator that returns
+						its right-hand side
+						operand when its left-hand side operand is null or undefined, and otherwise returns its
+						left-hand side operand.
+						<br />
+						<br />
+						In logical OR operator(||), the right-hand side operand is returned when the left-hand side
+						operand is false, 0, null or undefined.
+					</p>
+					<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+						var defaultVal = false;
+						console.log(defaultVal ?? 'foo'); // false
+						console.log(defaultVal ||'bar'); // bar
+	   			</code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h4>More examples</h4>
+					<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+						const nullValue = null;
+						const emptyText = ""; // falsy
+						const someNumber = 42;
+
+						const valA = nullValue ?? "default for A";
+						const valB = emptyText ?? "default for B";
+						const valC = someNumber ?? 0;
+
+						console.log(valA); // "default for A"
+						console.log(valB); // "" (as the empty string is not null or undefined)
+						console.log(valC); // 42
+	   			</code></pre>
+				</section>
+
+
+			</section>
+
+			<section>
+				<section data-auto-animate>
+					<h4>Rest and Spread Operators</h4>
+				</section>
+
+				<section data-auto-animate>
+					<h4>Rest Parameters</h4>
+					<h6>With the rest parameter, we can represent an indefinite number of arguments as an array. We can
+						pass the arguments in the function prefixed with ... and this will cause all the arguments to be
+						placed within an array.</h6>
+					<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+				// So how can we use this?
+				// Default value
+				function getArgs(x, y, ...otherNum) {
+					console.log("x", x)
+					console.log("y", y)
+					console.log("otherNum", otherNum)
+				}
+				getArgs(1, 2, 3, 4, 5);
+				// expected output:
+				// x, 1
+				// y, 2
+				// otherNum, [3, 4]
+	   			</code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h4>Spread Operator</h4>
+					<h6>The spread operator allows expanding an array or an object. It is the reverse of rest
+						parameters
+						i.e. it can be used in function calls instead of function definitions. It can be used for
+						merging arrays, copying array, add elements to an array, or passing array elements etc, in a
+						function call.</h6>
+					<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+					var foo = [1, 2, 3, 4];
+					var bar = [...foo, 5, 6];
+					console.log(bar);
+					// expected output: [1, 2, 3, 4, 5, 6]
+	   			</code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h4>Unique values</h4>
+					<h6>ECMAScript 5</h6>
+					<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+						function onlyUnique(value, index, self) {
+							return self.indexOf(value) === index;
+						}
+
+						// usage example:
+						var array = ['a', 1, 'a', 2, '1'];
+						var unique = array.filter(onlyUnique);
+
+						console.log(unique); // ['a', 1, 2, '1']
+	   			</code></pre>
+					<h6>ECMAScript 6</h6>
+					<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+					   var myArray = ['a', 1, 'a', 2, '1'];
+
+					   let unique = [...new Set(myArray)];
+
+					   console.log(unique); // unique is ['a', 1, 2, '1']
+				  </code></pre>
+				</section>
+
+			</section>
+
+			<section>
+
+				<section data-auto-animate>
+					<h4>Destructuring Assignment</h4>
+					<h6>The destructuring assignment syntax is a JavaScript expression that makes it possible to unpack
+						values from arrays, or properties from objects, into distinct variables.</h6>
+					<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+						[a, b] = [1, 2];
+						console.log(a); // 1
+						console.log(b); // 2
+						// Swap two variables
+						[a, b] = [b, a];
+						console.log(a); // 2
+						console.log(b); // 1
+						[firstName, lastName] = "Gurseerat Kaur".split(" ");
+						console.log(firstName) // "Gurseerat"
+						console.log(lastName) // "Kaur"
+	   			</code></pre>
+				</section>
+
+			</section>
+
+			</section>
+
+			<section>
+				<section data-auto-animate>
+					<h4>Map vs Set data structure </h4>
+				</section>
+
+				<section data-auto-animate>
+					<h4>Map</h4>
+					<h6>Map is a collection of keyed data items, just like an Object. But the main difference is that
+						Map allows keys of any type.</h6>
+					<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+					let map = new Map();
+
+					map.set('1', 'str1');   // a string key
+					map.set(1, 'num1');     // a numeric key
+					map.set(true, 'bool1'); // a boolean key
+
+					// remember the regular Object? it would convert keys to string
+					// Map keeps the type, so these two are different:
+					alert( map.get(1)   ); // 'num1'
+					alert( map.get('1') ); // 'str1'
+
+					alert( map.size ); // 3
+			   </code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h4>Map</h4>
+					<h6>Map can also use objects as keys.</h6>
+					<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+						let john = { name: "John" };
+
+						// for every user, let's store their visits count
+						let visitsCountMap = new Map();
+
+						// john is the key for the map
+						visitsCountMap.set(john, 123);
+
+						alert( visitsCountMap.get(john) ); // 123
+			   </code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h4>Map</h4>
+					<h6>Simple object can't do it</h6>
+					<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+						let john = { name: "John" };
+						let ben = { name: "Ben" };
+
+						let visitsCountObj = {}; // try to use an object
+
+						visitsCountObj[ben] = 234; // try to use ben object as the key
+						visitsCountObj[john] = 123; // try to use john object as the key, ben object will get replaced
+
+						// That's what got written!
+						alert( visitsCountObj["[object Object]"] ); // 123
+			   </code></pre>
+				</section>
+
+				<section data-auto-animate>
+					<h4>Set</h4>
+					<h6>A Set is a special type collection – “set of values” (without keys), where each value may occur only once.</h6>
+					<pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+						let set = new Set();
+
+						let john = { name: "John" };
+						let pete = { name: "Pete" };
+						let mary = { name: "Mary" };
+
+						// visits, some users come multiple times
+						set.add(john);
+						set.add(pete);
+						set.add(mary);
+						set.add(john);
+						set.add(mary);
+
+						// set keeps only unique values
+						alert( set.size ); // 3
+
+						for (let user of set) {
+						  alert(user.name); // John (then Pete and Mary)
+						}
+			   </code></pre>
+				</section>
+
+			</section>
+
+			<section data-auto-animate>
+				<h5>Sources:</h5>
+				<a
+				   style="font-size:14px">https://medium.com/khojchakra/javascript-features-that-every-web-developer-should-know-45ed6cb4f7b2</a>
+				<br />
+				<a style="font-size:14px">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator</a>
+				<br />
+				<a style="font-size:14px">https://javascript.info/map-set</a>
+
+			</section>
+
+			<section data-auto-animate>
+				<h5>Thank you!</h5>
+			</section>
+
+		</div>
+
+	</div>
+
+	<script src="./dist/reveal.js"></script>
+	<script src="./plugin/highlight/highlight.js"></script>
+	<script>
+		Reveal.initialize({
+			center: true,
+			hash: true,
+			plugins: [RevealHighlight]
+		});
+	</script>
+
+</body>
+
+</html>
